@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<style>
+		table, th, td {
+  			border: 1px solid black;
+  			border-collapse: collapse;
+		}
+	</style>
+    <meta charset="UTF-8">
+    <title>Sudoku Input</title>
+</head>
+<body>
+    <h1>Sudoku Input</h1>
+    <form action="@{/add}" method="post">
+    <label>Select row</label>
+    <select name="row" id="row">
+		<option value="r1">1</option>
+		<option value="r2">2</option>
+		<option value="r3">3</option>
+		<option value="r4">4</option>
+		<option value="r5">5</option>
+		<option value="r6">6</option>
+		<option value="r7">7</option>
+		<option value="r8">8</option>
+		<option value="r9">9</option>
+	</select>
+	<br>
+	<label>Select Column</label>
+	 <select name="column" id="column">
+		<option value="c1">1</option>
+		<option value="c2">2</option>
+		<option value="c3">3</option>
+		<option value="c4">4</option>
+		<option value="c5">5</option>
+		<option value="c6">6</option>
+		<option value="c7">7</option>
+		<option value="c8">8</option>
+		<option value="c9">9</option>
+	</select>
+	<br>
+	<label>Enter the number</label>
+	<input type="number" name="val" id="val"/>
+	<a href="@{/sudoku/add}">Add</a>
+	<br>
+	</form>
+    <form th:action="@{/solve}" method="post">
+        <table>
+			<tr>
+    			<th>Col_1</th>
+    			<th>Col_2</th>
+    			<th>Col_3</th>
+    			<th>Col_4</th>
+    			<th>Col_5</th>
+    			<th>Col_6</th>
+    			<th>Col_7</th>
+    			<th>Col_8</th>
+    			<th>Col_9</th>
+  			</tr>
+            <tr th:each="row, rowStat : ${sudoku}">
+                <td th:each="cell, cellStat : ${row}">
+                    <input type="text" th:field="*{sudoku[__${rowStat.index}__][__${cellStat.index}__]}" />
+                </td>
+            </tr>
+        </table>
+        <button type="submit">Solve</button>
+    </form>
+</body>
+</html>
